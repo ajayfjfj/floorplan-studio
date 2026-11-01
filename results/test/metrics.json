@@ -1,0 +1,114 @@
+{
+  "split": "test",
+  "plans": 400,
+  "resolution": 512,
+  "device": "cuda",
+  "checkpoint": "artifacts/segformer/best",
+  "pixel": {
+    "pixel_accuracy": 0.947080537046312,
+    "mean_iou_foreground": 0.697870872433699,
+    "mean_iou_all": 0.7457762068822503,
+    "per_class": {
+      "background": {
+        "iou": 0.9373975446764552,
+        "dice": 0.9676873466183734,
+        "support_pixels": 34703573
+      },
+      "room": {
+        "iou": 0.9193103809741768,
+        "dice": 0.9579590566352963,
+        "support_pixels": 32571154
+      },
+      "wall": {
+        "iou": 0.7005435959771945,
+        "dice": 0.8239054824991259,
+        "support_pixels": 5373734
+      },
+      "door": {
+        "iou": 0.49664899007410057,
+        "dice": 0.663681321897008,
+        "support_pixels": 541013
+      },
+      "window": {
+        "iou": 0.6749805227093244,
+        "dice": 0.8059562646346787,
+        "support_pixels": 1180574
+      }
+    },
+    "confusion_matrix": [
+      [
+        33212639,
+        791289,
+        521185,
+        47487,
+        130973
+      ],
+      [
+        453789,
+        31063142,
+        770402,
+        182059,
+        101762
+      ],
+      [
+        205598,
+        314946,
+        4735019,
+        40882,
+        77289
+      ],
+      [
+        11323,
+        80620,
+        27111,
+        408241,
+        13718
+      ],
+      [
+        56404,
+        31604,
+        66632,
+        10550,
+        1015384
+      ]
+    ]
+  },
+  "instances_iou_0_5": {
+    "room": {
+      "tp": 1359,
+      "fp": 1307,
+      "fn": 2967,
+      "precision": 0.5097524381095274,
+      "recall": 0.3141470180305132,
+      "f1": 0.3887299771167048
+    },
+    "wall": {
+      "tp": 618,
+      "fp": 5196,
+      "fn": 10087,
+      "precision": 0.10629514963880289,
+      "recall": 0.057730032695002334,
+      "f1": 0.07482293117016768
+    },
+    "door": {
+      "tp": 1809,
+      "fp": 1997,
+      "fn": 2278,
+      "precision": 0.4753021544929059,
+      "recall": 0.4426229508196721,
+      "f1": 0.4583808437856328
+    },
+    "window": {
+      "tp": 1960,
+      "fp": 1098,
+      "fn": 1668,
+      "precision": 0.6409417920209287,
+      "recall": 0.5402425578831312,
+      "f1": 0.5862997307807358
+    }
+  },
+  "room_count_mae": 4.715,
+  "json_valid_fraction": 1.0,
+  "median_inference_seconds": 0.02932757100006711,
+  "instance_note": "True instances are individual SVG polygons; predicted instances are connected semantic-mask regions. Wall-instance scores are diagnostic because connected wall networks merge segments."
+}

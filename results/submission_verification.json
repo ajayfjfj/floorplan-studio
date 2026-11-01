@@ -1,0 +1,73 @@
+{
+  "complete": true,
+  "trained_checkpoint_reload": "passed on local CPU",
+  "sample_json_validated": 8,
+  "test_plans": 400,
+  "best_checkpoint_encoder_change": 0.09010548144578934,
+  "files": {
+    "README.md": {
+      "bytes": 10295,
+      "sha256": "d568ac0f6ad73fe589c006e72dea86d5041821bddcfa22a7d35646dae1c6c358"
+    },
+    "docs/DATASET.md": {
+      "bytes": 3780,
+      "sha256": "e7501fd648de811ab5e642c85588e6adc807d41454e0e4dfac80b0c21672b19b"
+    },
+    "docs/JSON_FORMAT.md": {
+      "bytes": 1904,
+      "sha256": "d7c1eee758439876ef10a6942ac1aec2d665d8ed4c5f10eecf1670cfdfc60d24"
+    },
+    "notebooks/FloorPlan_Colab.ipynb": {
+      "bytes": 3348,
+      "sha256": "1912eb0ba786112eb94ac93699576cce9b8c61da8d21c5de653a423ca0cbeb9f"
+    },
+    "artifacts/segformer/best/model.safetensors": {
+      "bytes": 14887860,
+      "sha256": "b288d5b2972297125ad1e26187cea8a3a2e04cac86efe89ad2c4435d54533227"
+    },
+    "artifacts/segformer/best/config.json": {
+      "bytes": 1164,
+      "sha256": "23ab1d7fd3fac01acb5989f1d758df67c74ecda046c97f137a4aabb7bea630a3"
+    },
+    "artifacts/segformer/history.json": {
+      "bytes": 6689,
+      "sha256": "cc7fda3ee1424d11aea0c8feaf0c794011c5b79b17b6e066417bbb24167b6078"
+    },
+    "artifacts/segformer/finetuning_evidence.json": {
+      "bytes": 222,
+      "sha256": "974d3e29ee543fc826259e1a0926977886c6c42285c6a842d320204cc5f0aacb"
+    },
+    "results/test/metrics.json": {
+      "bytes": 2532,
+      "sha256": "7bf72906f190a2c09652673ffee80505f11f477c687d8a1ad1e0efc497c695c4"
+    },
+    "results/RESULTS.md": {
+      "bytes": 2153,
+      "sha256": "2b68fa2f6172e78523203d5a5650616c356d4fbf171b00868a8cbd453f13c8e1"
+    },
+    "presentation/FloorPlan_Detection_Final.pptx": {
+      "bytes": 380021,
+      "sha256": "d1283a0db69eef2b27c09cf22af0744d18f1121b0825c94211d886bb265f2c74"
+    },
+    "web/dist/index.html": {
+      "bytes": 11368,
+      "sha256": "85c28cb6f99a7694be2138783e9deca8690f72d5cd6bc5bf8cc45d8e5d82ec95"
+    },
+    "web/dist/models/floorplan-segformer.onnx": {
+      "bytes": 15023709,
+      "sha256": "e13fa4d27760d1832fef9579deaf41775036019ac83761094d6350e0f1098d32"
+    },
+    "web/README.md": {
+      "bytes": 4696,
+      "sha256": "ba4f6820bc6fbc084d9ab4164b2052550f31c8ff4461d89d5120d57a3a92ad3f"
+    },
+    "results/browser_export_verification.json": {
+      "bytes": 1255,
+      "sha256": "d9cc4a9d9b1cd4e1852bc347c3e4f971ea0873a8056b9c710ec20a941b411106"
+    },
+    "results/browser_demo_verification.json": {
+      "bytes": 2179,
+      "sha256": "d46d72599fa2cce36c7abab680d77907e0892192838a2b980c55403b16fa604a"
+    }
+  }
+}

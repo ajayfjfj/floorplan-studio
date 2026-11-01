@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Detect walls, doors, windows, and rooms in a floor plan. Try sample plans or upload an image, inspect the geometry, and download spatial JSON.">
+  <meta name="theme-color" content="#174f46">
+  <title>Floorplan Studio — Plan to geometry</title>
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css?v=3">
+  <script type="module" src="app.js?v=3"></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="Floorplan Studio home"><img src="icon.svg" width="36" height="36" alt=""><span>Floorplan <strong>Studio</strong></span></a>
+    <div class="header-right"><span class="model-tag"><i></i> Fine-tuned SegFormer-B0</span><a href="#about" class="text-link">About the model <span aria-hidden="true">↗</span></a></div>
+  </header>
+  <main>
+    <section class="intro" aria-labelledby="page-title">
+      <div><p class="eyebrow">A FLOOR PLAN, UNDERSTOOD</p><h1 id="page-title">Turn a drawing into structure.</h1><p class="lede">Explore walls, openings, and room regions. Start with a sample or bring your own plan.</p></div>
+      <div class="benchmark"><strong>69.79<span>%</span></strong><span>foreground mIoU<br>400 unseen test plans</span></div>
+    </section>
+    <section class="workbench" aria-label="Floor-plan detection workspace">
+      <aside class="input-panel">
+        <div class="panel-heading"><span class="step">01</span><h2>Choose a plan</h2></div>
+        <label class="upload-area" id="drop-zone" tabindex="0" role="button" aria-label="Upload a floor-plan image">
+          <svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 16V4m-4 4 4-4 4 4M4 15v5h16v-5"/></svg>
+          <strong>Upload floor plan</strong><span>or drop an image here</span><small>PNG, JPG, WebP · up to 10 MB</small>
+          <input id="file-input" type="file" accept="image/png,image/jpeg,image/webp" class="visually-hidden" tabindex="-1">
+        </label>
+        <p class="privacy-note"><svg width="13" height="15" viewBox="0 0 16 18" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="2" y="7" width="12" height="9" rx="2"/><path d="M5 7V4a3 3 0 0 1 6 0v3"/></svg> Your image stays in your browser.</p>
+        <div class="samples-heading"><h3>Sample floor plans</h3><span>8 test plans</span></div>
+        <div class="sample-grid" id="sample-grid" aria-label="Sample floor plans">
+          <!-- SAMPLE_PLANS_START -->
+<button class="sample-card" data-id="sample_04" data-title="Narrow apartment" data-source-id="high_quality_architectural/2504" aria-label="Load sample: Narrow apartment" aria-pressed="false" title="Narrow apartment · CubiCasa5K · high_quality_architectural/2504"><img src="samples/sample_04/thumbnail.webp" alt="" width="100" height="100"><span class="sample-label">Narrow apartment</span></button>
+<button class="sample-card" data-id="sample_07" data-title="Compact apartment" data-source-id="high_quality_architectural/2090" aria-label="Load sample: Compact apartment" aria-pressed="false" title="Compact apartment · CubiCasa5K · high_quality_architectural/2090"><img src="samples/sample_07/thumbnail.webp" alt="" width="100" height="100"><span class="sample-label">Compact apartment</span></button>
+<button class="sample-card" data-id="sample_02" data-title="Open layout" data-source-id="high_quality_architectural/2536" aria-label="Load sample: Open layout" aria-pressed="false" title="Open layout · CubiCasa5K · high_quality_architectural/2536"><img src="samples/sample_02/thumbnail.webp" alt="" width="100" height="100"><span class="sample-label">Open layout</span></button>
+<button class="sample-card" data-id="sample_06" data-title="L-shaped layout" data-source-id="high_quality_architectural/22" aria-label="Load sample: L-shaped layout" aria-pressed="false" title="L-shaped layout · CubiCasa5K · high_quality_architectural/22"><img src="samples/sample_06/thumbnail.webp" alt="" width="100" height="100"><span class="sample-label">L-shaped layout</span></button>
+<button class="sample-card" data-id="sample_01" data-title="Architectural plan" data-source-id="high_quality_architectural/1191" aria-label="Load sample: Architectural plan" aria-pressed="false" title="Architectural plan · CubiCasa5K · high_quality_architectural/1191"><img src="samples/sample_01/thumbnail.webp" alt="" width="100" height="100"><span class="sample-label">Architectural plan</span></button>
+<button class="sample-card" data-id="sample_03" data-title="Detailed drawing" data-source-id="high_quality_architectural/2530" aria-label="Load sample: Detailed drawing" aria-pressed="false" title="Detailed drawing · CubiCasa5K · high_quality_architectural/2530"><img src="samples/sample_03/thumbnail.webp" alt="" width="100" height="100"><span class="sample-label">Detailed drawing</span></button>
+<button class="sample-card" data-id="sample_05" data-title="Residential plan" data-source-id="high_quality_architectural/2207" aria-label="Load sample: Residential plan" aria-pressed="false" title="Residential plan · CubiCasa5K · high_quality_architectural/2207"><img src="samples/sample_05/thumbnail.webp" alt="" width="100" height="100"><span class="sample-label">Residential plan</span></button>
+<button class="sample-card" data-id="sample_08" data-title="Multi-unit plan" data-source-id="high_quality_architectural/2085" aria-label="Load sample: Multi-unit plan" aria-pressed="false" title="Multi-unit plan · CubiCasa5K · high_quality_architectural/2085"><img src="samples/sample_08/thumbnail.webp" alt="" width="100" height="100"><span class="sample-label">Multi-unit plan</span></button>
+<!-- SAMPLE_PLANS_END -->
+        </div>
+        <button class="secondary-button" id="download-sample" disabled>Download sample image</button>
+        <p class="sample-note">Choose a test plan, then run detection. Every result is generated on your device.</p>
+      </aside>
+      <section class="viewer-panel" aria-labelledby="viewer-title">
+        <div class="viewer-top"><div class="panel-heading"><span class="step">02</span><h2 id="viewer-title">Inspect the result</h2></div><span id="dimensions" class="mono"></span></div>
+        <div class="tabs" role="tablist" aria-label="Output view"><button id="tab-visual" role="tab" aria-selected="true" aria-controls="view-visual">Visual preview</button><button id="tab-json" role="tab" aria-selected="false" aria-controls="view-json" tabindex="-1">JSON output</button><span class="view-hint">Normalized coordinates · 0–1</span></div>
+        <div id="view-visual" class="visual-view" role="tabpanel" aria-labelledby="tab-visual">
+          <div class="canvas-board" id="canvas-board"><div class="drawing" id="drawing"><img id="plan-image" alt="Selected floor plan"><svg id="geometry-overlay" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-label="Detected architectural elements"></svg></div></div>
+          <div class="viewer-controls"><label class="toggle"><input id="overlay-toggle" type="checkbox" checked><span>Show detection</span></label><label class="opacity-control">Opacity <input id="opacity" type="range" min="10" max="85" value="45" aria-label="Detection opacity"><output id="opacity-value">45%</output></label><button class="icon-button" id="download-overlay" title="Download the visual overview as PNG" aria-label="Download visual overview PNG" disabled><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M4 17v4h16v-4"/></svg></button></div>
+        </div>
+        <div id="view-json" class="json-view" role="tabpanel" aria-labelledby="tab-json" hidden><div class="json-toolbar"><span>prediction.json</span><button id="copy-json" class="text-button" disabled>Copy JSON</button></div><pre id="json-code" tabindex="0">Choose an image to begin.</pre></div>
+        <div class="status-row"><span class="status-dot" id="status-dot"></span><p id="status" role="status" aria-live="polite">Loading a sample plan…</p></div>
+        <div id="error-box" class="error-box" role="alert" hidden></div>
+      </section>
+      <aside class="output-panel">
+        <div class="panel-heading"><span class="step">03</span><h2>Use the geometry</h2></div>
+        <div class="result-heading"><span class="eyebrow">DETECTED REGIONS</span><strong id="total-count">—</strong><p id="result-source">Choose a plan to begin</p></div>
+        <div class="class-list" id="class-list"></div>
+        <div class="element-details" id="element-details" hidden><strong id="element-name"></strong><p id="element-info"></p></div>
+        <button class="primary-button" id="run-button" disabled><span aria-hidden="true">↗</span> Run detection</button>
+        <div class="export-actions"><button class="secondary-button" id="download-json" disabled><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M4 17v4h16v-4"/></svg> Download JSON</button><button class="secondary-button" id="download-overview" disabled>Download visual overview (PNG)</button></div>
+        <p class="run-note" id="run-note">Runs on your device. First run loads the model; later runs reuse it.</p>
+        <div class="geometry-note"><span class="note-icon" aria-hidden="true">i</span><p>Regions can merge, especially rooms. Review the geometry before using it in 3D. Real-world scale and heights need separate calibration.</p></div>
+      </aside>
+    </section>
+    <section id="about" class="about-section" aria-labelledby="about-heading">
+      <div class="about-intro"><p class="eyebrow">BEHIND THE DRAWING</p><h2 id="about-heading">A compact model.<br>A measurable result.</h2><p>SegFormer-B0, fine-tuned end to end on CubiCasa5K for 30 epochs. Five pixel classes become polygons, holes, bounding boxes, and opening spans.</p></div>
+      <div class="evaluation"><div class="evaluation-heading"><h3>Test-set segmentation</h3><span>Intersection over Union</span></div><div id="metric-bars"></div><p class="evaluation-footnote">400 held-out plans · 94.71% pixel accuracy<br>Room instance F1: 38.87%. Room occupancy is stronger than room separation. These are Python evaluation results, not a benchmark of your browser.</p></div>
+      <div class="handoff"><span class="code-mark" aria-hidden="true">{ }</span><h3>Built for the next step</h3><p>Spatial JSON uses normalized coordinates with the origin at the top left. Download it for inspection or as input to a 2D-to-3D pipeline.</p><a class="text-link" href="prediction.schema.json" download>Download JSON schema <span aria-hidden="true">↗</span></a></div>
+    </section>
+  </main>
+  <footer><span>Floorplan Studio <span class="footer-divider">/</span> Research demo</span><p>Sample plans: <a href="https://github.com/CubiCasa/CubiCasa5k" target="_blank" rel="noopener noreferrer">CubiCasa5K</a> · <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC 4.0</a> · Noncommercial use</p><a href="licenses.html">Model &amp; runtime licenses</a></footer>
+</body>
+</html>

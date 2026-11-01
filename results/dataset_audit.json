@@ -1,0 +1,237 @@
+{
+  "classes": [
+    "background",
+    "room",
+    "wall",
+    "door",
+    "window"
+  ],
+  "size": 512,
+  "splits": {
+    "test": 400,
+    "val": 400,
+    "train": 4179
+  },
+  "original_splits": {
+    "train": 4200,
+    "val": 400,
+    "test": 400
+  },
+  "duplicates": [
+    {
+      "excluded_split": "train",
+      "excluded_id": "high_quality_architectural/1860",
+      "kept_split": "val",
+      "kept_id": "high_quality_architectural/642",
+      "image_sha256": "f858face47c23eba2c093c9a71151fa09ad1819434ca202a4b94f80816678707",
+      "identical_svg_bytes": true
+    },
+    {
+      "excluded_split": "train",
+      "excluded_id": "high_quality_architectural/1584",
+      "kept_split": "test",
+      "kept_id": "high_quality_architectural/6081",
+      "image_sha256": "243a87b244cd814875239ac45f4a19c3392b69424cc79799ace363e91b152083",
+      "identical_svg_bytes": true
+    },
+    {
+      "excluded_split": "train",
+      "excluded_id": "high_quality_architectural/194",
+      "kept_split": "val",
+      "kept_id": "high_quality_architectural/575",
+      "image_sha256": "60cba87418e5c93c7862d94997291f3bf4b067b3842dcab833ff8d9dfbb0d31a",
+      "identical_svg_bytes": true
+    },
+    {
+      "excluded_split": "train",
+      "excluded_id": "high_quality_architectural/8639",
+      "kept_split": "train",
+      "kept_id": "high_quality_architectural/8619",
+      "image_sha256": "aa3bf02bce9ec45bd1b3cd1aa9747b7987e849ae737b73150a01948fd948d6db",
+      "identical_svg_bytes": true
+    },
+    {
+      "excluded_split": "train",
+      "excluded_id": "high_quality_architectural/752",
+      "kept_split": "train",
+      "kept_id": "high_quality_architectural/716",
+      "image_sha256": "74ff49c967f0396308237b00add7e053a1d4397af630cb11280eac84ad1a4c88",
+      "identical_svg_bytes": true
+    },
+    {
+      "excluded_split": "train",
+      "excluded_id": "high_quality_architectural/2172",
+      "kept_split": "train",
+      "kept_id": "high_quality_architectural/3947",
+      "image_sha256": "f54daa665bd76c141e6182f7fb369bca6bad40740297d092ec462f19af76f602",
+      "identical_svg_bytes": true
+    },
+    {
+      "excluded_split": "train",
+      "excluded_id": "high_quality_architectural/1216",
+      "kept_split": "val",
+      "kept_id": "high_quality_architectural/1186",
+      "image_sha256": "a74b884f282315e3f7ce7ac63a90ea61c436f9b0e772eeb7e4df1ff1422fc4b2",
+      "identical_svg_bytes": true
+    },
+    {
+      "excluded_split": "train",
+      "excluded_id": "high_quality_architectural/7578",
+      "kept_split": "train",
+      "kept_id": "high_quality_architectural/951",
+      "image_sha256": "b129e7cc0315c5fbeda4541a3d5da517243b01f83b53e3a2e1241354d6fe44d8",
+      "identical_svg_bytes": true
+    },
+    {
+      "excluded_split": "train",
+      "excluded_id": "high_quality_architectural/10209",
+      "kept_split": "train",
+      "kept_id": "high_quality_architectural/1828",
+      "image_sha256": "3f531084be3c108041c0d1e47ed497f288e18b072756251eff3d7d3a28efd291",
+      "identical_svg_bytes": false
+    },
+    {
+      "excluded_split": "train",
+      "excluded_id": "high_quality_architectural/10750",
+      "kept_split": "train",
+      "kept_id": "high_quality_architectural/10672",
+      "image_sha256": "45f239fbafb94b71d88c250e44c095d400ad7ad9638886bf53984dc3caf8d1a2",
+      "identical_svg_bytes": true
+    },
+    {
+      "excluded_split": "train",
+      "excluded_id": "high_quality_architectural/11345",
+      "kept_split": "train",
+      "kept_id": "high_quality_architectural/4501",
+      "image_sha256": "07501e0bc6a3a27d2926a4f16eb1a4a5ef5874e525cae6ad0572f11afa52df2c",
+      "identical_svg_bytes": false
+    },
+    {
+      "excluded_split": "train",
+      "excluded_id": "high_quality_architectural/11430",
+      "kept_split": "train",
+      "kept_id": "high_quality_architectural/10394",
+      "image_sha256": "88320e59915962ec53d5e78e8e86c20b8a1ca89dfbd2fca1aa8571be3653ce3e",
+      "identical_svg_bytes": true
+    },
+    {
+      "excluded_split": "train",
+      "excluded_id": "high_quality_architectural/11487",
+      "kept_split": "train",
+      "kept_id": "high_quality_architectural/9493",
+      "image_sha256": "93182e1b895f28a3a36e5d3f7b4e525d6787b227e3651fa587d8eea07a1ba37f",
+      "identical_svg_bytes": false
+    },
+    {
+      "excluded_split": "train",
+      "excluded_id": "high_quality_architectural/11684",
+      "kept_split": "train",
+      "kept_id": "high_quality_architectural/11347",
+      "image_sha256": "c057d342dbec8d0701e0c7683d8b391e6093fb272fa8827ebda0b2b70d6f2b04",
+      "identical_svg_bytes": true
+    },
+    {
+      "excluded_split": "train",
+      "excluded_id": "high_quality_architectural/11716",
+      "kept_split": "train",
+      "kept_id": "high_quality_architectural/10646",
+      "image_sha256": "0bdae5cf9628ae5c6f531b29cebf6d3fe9d41be9a64c592e8c948661f560a5bb",
+      "identical_svg_bytes": true
+    },
+    {
+      "excluded_split": "train",
+      "excluded_id": "high_quality_architectural/13483",
+      "kept_split": "train",
+      "kept_id": "high_quality_architectural/3153",
+      "image_sha256": "66914863c10f35c7b8685c16f9baf979c585442ee63b52ba33644f628f2b90af",
+      "identical_svg_bytes": false
+    },
+    {
+      "excluded_split": "train",
+      "excluded_id": "high_quality_architectural/13554",
+      "kept_split": "train",
+      "kept_id": "high_quality_architectural/11786",
+      "image_sha256": "fe1198a3f47a1919f9e08b758df2106094e66d8482256402c00f7056785a2218",
+      "identical_svg_bytes": true
+    },
+    {
+      "excluded_split": "train",
+      "excluded_id": "colorful/6296",
+      "kept_split": "test",
+      "kept_id": "high_quality/5836",
+      "image_sha256": "2f47be0442dbea224653c6662171e14153987abf98357137296f57cbde3ace83",
+      "identical_svg_bytes": true
+    },
+    {
+      "excluded_split": "train",
+      "excluded_id": "high_quality/4011",
+      "kept_split": "val",
+      "kept_id": "high_quality/3750",
+      "image_sha256": "2ff6d58717b308d7c4e62b80a3225c512a1b84208db031f04a65480aada1c623",
+      "identical_svg_bytes": true
+    },
+    {
+      "excluded_split": "train",
+      "excluded_id": "high_quality/470",
+      "kept_split": "train",
+      "kept_id": "high_quality/2110",
+      "image_sha256": "54c3e8bf4a56a4d40796e84941ddfa48c3badc3e67ebfa647c4b93b5891647d0",
+      "identical_svg_bytes": true
+    },
+    {
+      "excluded_split": "train",
+      "excluded_id": "high_quality/14469",
+      "kept_split": "train",
+      "kept_id": "high_quality/2193",
+      "image_sha256": "19160cf368caee6831236b83ef4055acbb1afe59090ba707f17509ed325b64bd",
+      "identical_svg_bytes": false
+    }
+  ],
+  "duplicate_policy": "Keep first occurrence with split priority test > val > train; exclude exact RGB pixel duplicates from lower-priority splits.",
+  "mapping": {
+    "UserDefined": "room",
+    "Kitchen": "room",
+    "Entry": "room",
+    "LivingRoom": "room",
+    "Bedroom": "room",
+    "Utility": "room",
+    "Bath": "room",
+    "Undefined": "room",
+    "DraughtLobby": "room",
+    "Closet": "room",
+    "Wall": "wall",
+    "Window": "window",
+    "Door": "door",
+    "Dining": "room",
+    "TechnicalRoom": "room",
+    "Garage": "room",
+    "Storage": "room",
+    "DressingRoom": "room",
+    "Alcove": "room",
+    "Room": "room",
+    "Den": "room",
+    "CarPort": "room",
+    "Attic": "room",
+    "Library": "room",
+    "Elevated": "room",
+    "Hall": "room",
+    "RecreationRoom": "room",
+    "Basement": "room",
+    "Sauna": "room",
+    "SwimmingPool": "room",
+    "Office": "room",
+    "RetailSpace": "room",
+    "OpenToBelow": "room",
+    "Garbage": "room",
+    "ExerciseRoom": "room",
+    "Elevator": "room",
+    "Bar": "room"
+  },
+  "pixel_counts": [
+    376642878,
+    337273336,
+    55046979,
+    5326897,
+    11669334
+  ]
+}

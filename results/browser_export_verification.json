@@ -1,0 +1,61 @@
+{
+  "checkpoint": "artifacts/segformer/best",
+  "opset": 17,
+  "input": [
+    1,
+    3,
+    512,
+    512
+  ],
+  "output": [
+    1,
+    5,
+    128,
+    128
+  ],
+  "bytes": 15023709,
+  "sha256": "e13fa4d27760d1832fef9579deaf41775036019ac83761094d6350e0f1098d32",
+  "checks": [
+    {
+      "sample": "sample_01",
+      "max_logit_error": 1.430511474609375e-05,
+      "argmax_agreement": 1.0
+    },
+    {
+      "sample": "sample_02",
+      "max_logit_error": 1.52587890625e-05,
+      "argmax_agreement": 1.0
+    },
+    {
+      "sample": "sample_03",
+      "max_logit_error": 1.4781951904296875e-05,
+      "argmax_agreement": 1.0
+    },
+    {
+      "sample": "sample_04",
+      "max_logit_error": 1.5735626220703125e-05,
+      "argmax_agreement": 1.0
+    },
+    {
+      "sample": "sample_05",
+      "max_logit_error": 1.9073486328125e-05,
+      "argmax_agreement": 1.0
+    },
+    {
+      "sample": "sample_06",
+      "max_logit_error": 1.621246337890625e-05,
+      "argmax_agreement": 1.0
+    },
+    {
+      "sample": "sample_07",
+      "max_logit_error": 1.5020370483398438e-05,
+      "argmax_agreement": 1.0
+    },
+    {
+      "sample": "sample_08",
+      "max_logit_error": 2.002716064453125e-05,
+      "argmax_agreement": 1.0
+    }
+  ],
+  "passed": true
+}

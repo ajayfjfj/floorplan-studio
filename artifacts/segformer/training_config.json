@@ -1,0 +1,21 @@
+{
+  "base_model": "nvidia/segformer-b0-finetuned-ade-512-512",
+  "epochs": 30,
+  "batch_size": 16,
+  "lr": 6e-05,
+  "seed": 42,
+  "patience": 6,
+  "device": "cuda",
+  "size": 512,
+  "optimizer": "AdamW",
+  "weight_decay": 0.01,
+  "loss": "weighted cross entropy + foreground soft Dice",
+  "splits": {
+    "test": 400,
+    "val": 400,
+    "train": 4179
+  },
+  "torch": "2.11.0+cu130",
+  "python": "3.13.16",
+  "base_revision": "489d5cd81a0b59fab9b7ea758d3548ebe99677da"
+}

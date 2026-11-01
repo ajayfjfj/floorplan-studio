@@ -1,0 +1,51 @@
+{
+  "checks": {
+    "live_sample_inference": "passed: 512x512 sample, 34 regions",
+    "uploaded_image_inference": "passed: 512x343 PNG, 70 regions",
+    "downloaded_json_schema": "passed for both browser exports",
+    "preview_png_download": "passed: valid PNG",
+    "class_filter_and_region_inspection": "passed",
+    "responsive_layout": "passed: desktop and 390px mobile; no horizontal overflow",
+    "initial_output_empty": "passed: no polygons, counts, or enabled downloads before inference",
+    "sample_change_clears_output": "passed: JSON and polygons cleared; downloads disabled",
+    "visual_overview_png": "passed: new labeled button downloads annotated plan, legend, and counts",
+    "sample_gallery": "passed: all eight static sample controls selected and full images loaded",
+    "sample_image_download": "passed: downloaded PNG matches the selected source image byte for byte"
+  },
+  "files": {
+    "upload_example.png": {
+      "bytes": 163822,
+      "sha256": "de0afd76e9a6398f31875701777127d0c8de5a01d0558f3a49c48a437d4b41b2"
+    },
+    "upload_prediction.json": {
+      "bytes": 136173,
+      "sha256": "853f3f141a12eba0e757e355c589a19055ac41f5a84513fc227d35b06ea5483f"
+    },
+    "sample04_live_prediction.json": {
+      "bytes": 75463,
+      "sha256": "5ea57aa58a741a71c8b59e02d61bced46752f95040176beac60eb01a29ed174b"
+    },
+    "visual_overview.png": {
+      "bytes": 221226,
+      "sha256": "cb5cf740f628aedf6e89b7c1f1c6f3f1d63d978a842742c52bf8a1cc734c8435"
+    }
+  },
+  "notes": [
+    "Browser timings depend on device and include postprocessing; reported test-set benchmark remains the Python evaluation.",
+    "The upload example is cropped from the letterboxed CubiCasa5K sample_01; CC BY-NC 4.0."
+  ],
+  "screenshots": [
+    "results/browser/demo_desktop.jpg",
+    "results/browser/demo_mobile.jpg"
+  ],
+  "deployment": {
+    "status": "local_only",
+    "public_hosting": "pending GitHub Pages publication after repository review",
+    "previous_public_access": "revoked"
+  },
+  "interface_behavior": {
+    "saved_predictions_distributed": false,
+    "initial_results": "empty",
+    "sample_selection": "image only; Run detection is required"
+  }
+}

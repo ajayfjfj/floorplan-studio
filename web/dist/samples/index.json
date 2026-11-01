@@ -1,0 +1,42 @@
+[
+  {
+    "id": "sample_04",
+    "title": "Narrow apartment",
+    "source_id": "high_quality_architectural/2504"
+  },
+  {
+    "id": "sample_07",
+    "title": "Compact apartment",
+    "source_id": "high_quality_architectural/2090"
+  },
+  {
+    "id": "sample_02",
+    "title": "Open layout",
+    "source_id": "high_quality_architectural/2536"
+  },
+  {
+    "id": "sample_06",
+    "title": "L-shaped layout",
+    "source_id": "high_quality_architectural/22"
+  },
+  {
+    "id": "sample_01",
+    "title": "Architectural plan",
+    "source_id": "high_quality_architectural/1191"
+  },
+  {
+    "id": "sample_03",
+    "title": "Detailed drawing",
+    "source_id": "high_quality_architectural/2530"
+  },
+  {
+    "id": "sample_05",
+    "title": "Residential plan",
+    "source_id": "high_quality_architectural/2207"
+  },
+  {
+    "id": "sample_08",
+    "title": "Multi-unit plan",
+    "source_id": "high_quality_architectural/2085"
+  }
+]

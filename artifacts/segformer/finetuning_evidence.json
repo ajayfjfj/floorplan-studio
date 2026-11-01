@@ -1,0 +1,8 @@
+{
+  "optimizer_steps": 7857,
+  "encoder_max_absolute_change_this_run": 0.014483826234936714,
+  "trainable_parameters": 3715429,
+  "best_validation_miou": 0.7000647730526808,
+  "epochs_completed": 30,
+  "gpu": "Tesla T4"
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Floor-plan geometry",
+  "type": "object",
+  "required": ["schema_version", "image", "coordinates", "meters_per_pixel", "elements", "limitations"],
+  "additionalProperties": false,
+  "$defs": {
+    "point": {"type":"array","items":{"type":"number","minimum":0,"maximum":1},"minItems":2,"maxItems":2},
+    "ring": {"type":"array","items":{"$ref":"#/$defs/point"},"minItems":3}
+  },
+  "properties": {
+    "schema_version": {"const":"1.0"},
+    "image": {"type":"object","required":["id","width","height"],"additionalProperties":false,"properties":{"id":{"type":"string"},"width":{"type":"integer","minimum":2},"height":{"type":"integer","minimum":2}}},
+    "coordinates": {"type":"object","required":["system","origin","x_axis","y_axis","normalization"],"properties":{"system":{"const":"normalized"},"origin":{"const":"top_left"},"x_axis":{"const":"right"},"y_axis":{"const":"down"},"normalization":{"type":"string"}},"additionalProperties":false},
+    "meters_per_pixel": {"type":["number","null"],"exclusiveMinimum":0},
+    "limitations": {"type":"array","items":{"type":"string"}},
+    "elements": {"type":"array","items":{"type":"object","required":["id","class","polygon","holes","bbox","area_fraction","confidence"],"additionalProperties":false,"properties":{
+      "id":{"type":"string"},"class":{"enum":["room","wall","door","window"]},
+      "polygon":{"$ref":"#/$defs/ring"},"holes":{"type":"array","items":{"$ref":"#/$defs/ring"}},
+      "bbox":{"type":"array","items":{"type":"number","minimum":0,"maximum":1},"minItems":4,"maxItems":4},
+      "area_fraction":{"type":"number","minimum":0,"maximum":1},"confidence":{"type":["number","null"],"minimum":0,"maximum":1},
+      "opening_span":{"type":"array","items":{"$ref":"#/$defs/point"},"minItems":2,"maxItems":2}
+    }}}
+  }
+}

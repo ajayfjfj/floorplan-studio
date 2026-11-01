@@ -1,0 +1,16 @@
+{
+  "sample_id": "high_quality_architectural/2504",
+  "source": "CubiCasa5K",
+  "license": "CC BY-NC 4.0",
+  "doi": "10.5281/zenodo.2613548",
+  "letterbox": [
+    74,
+    0,
+    363,
+    512
+  ],
+  "source_size": [
+    984,
+    1387
+  ]
+}
