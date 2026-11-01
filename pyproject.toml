@@ -6,11 +6,30 @@ build-backend = "setuptools.build_meta"
 name = "floorplan-segformer"
 version = "0.1.0"
 description = "Fine-tuning SegFormer for architectural floor-plan parsing"
+authors = [{name = "Ajay Veerapandian"}]
+readme = "README.md"
+license = {text = "MIT"}
+keywords = ["semantic-segmentation", "segformer", "floor-plan", "onnx", "computer-vision"]
+classifiers = [
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Scientific/Engineering :: Image Recognition",
+]
 requires-python = ">=3.10"
 dependencies = ["torch>=2.6,<3", "transformers==4.57.6", "numpy>=1.26,<2.3", "Pillow>=11,<13", "opencv-python-headless==4.12.0.88", "scipy>=1.13,<2", "jsonschema>=4.23,<5", "matplotlib>=3.9,<4", "tqdm>=4.67,<5", "requests>=2.32,<3"]
 
+[project.urls]
+Homepage = "https://github.com/ajayfjfj/floorplan-studio"
+Source = "https://github.com/ajayfjfj/floorplan-studio"
+Demo = "https://ajayfjfj.github.io/floorplan-studio/"
+
 [project.optional-dependencies]
 browser = ["onnx==1.23.2", "onnxruntime==1.31.1"]
+# Tests use the standard-library unittest runner and existing runtime dependencies.
+dev = []
 
 [project.scripts]
 floorplan = "floorplan.cli:main"
