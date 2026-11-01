@@ -6,8 +6,8 @@
   "best_checkpoint_encoder_change": 0.09010548144578934,
   "files": {
     "README.md": {
-      "bytes": 10478,
-      "sha256": "fa6b4d7b0cc1b50fa4fdae1febe879299b566129111c4f2c1a1500cfb0212d47"
+      "bytes": 13121,
+      "sha256": "39ded337aaf774a3ae6dbad4e9911d790f36988e613dd8a1ef7dad28b5059669"
     },
     "docs/DATASET.md": {
       "bytes": 3780,
@@ -46,8 +46,8 @@
       "sha256": "2b68fa2f6172e78523203d5a5650616c356d4fbf171b00868a8cbd453f13c8e1"
     },
     "presentation/FloorPlan_Detection_Final.pptx": {
-      "bytes": 380021,
-      "sha256": "d1283a0db69eef2b27c09cf22af0744d18f1121b0825c94211d886bb265f2c74"
+      "bytes": 380201,
+      "sha256": "510dea593972e7241a50006aed034ebd976a0c24402de7c8dc1fbd7648be7013"
     },
     "web/dist/index.html": {
       "bytes": 11368,
@@ -58,8 +58,8 @@
       "sha256": "e13fa4d27760d1832fef9579deaf41775036019ac83761094d6350e0f1098d32"
     },
     "web/README.md": {
-      "bytes": 4696,
-      "sha256": "ba4f6820bc6fbc084d9ab4164b2052550f31c8ff4461d89d5120d57a3a92ad3f"
+      "bytes": 4704,
+      "sha256": "fb60fbbec2eefbe213eba67871456e86f8907b10abb44b26d8219322f4a49c4b"
     },
     "results/browser_export_verification.json": {
       "bytes": 1255,

@@ -87,12 +87,14 @@ def main():
         ROOT / "results/download_provenance.json",
     )
     run([sys.executable, "-m", "pip", "freeze"])
-    (ROOT / "results/environment_colab.txt").write_text(
+    environment_dir = ROOT / "docs/environment"
+    environment_dir.mkdir(parents=True, exist_ok=True)
+    (environment_dir / "environment_colab.txt").write_text(
         subprocess.check_output([sys.executable, "-m", "pip", "freeze"], text=True)
     )
     dest = Path("/content/floorplan_trained_artifacts.zip")
     with zipfile.ZipFile(dest, "w", zipfile.ZIP_DEFLATED) as z:
-        for base in (ROOT / "artifacts/segformer", ROOT / "results"):
+        for base in (ROOT / "artifacts/segformer", ROOT / "results", environment_dir):
             for path in base.rglob("*"):
                 if (
                     path.is_file()

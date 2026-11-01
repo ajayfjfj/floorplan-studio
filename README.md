@@ -120,6 +120,8 @@ python -m pip install -e .
 
 CUDA is used automatically when available, then Apple MPS when supported, otherwise CPU. CPU inference is supported; GPU training is recommended. Use `--device cpu`, `--device mps`, or `--device cuda` to select explicitly.
 
+Recorded package versions are available for the [Colab environment](docs/environment/environment_colab.txt) and the [local environment](docs/environment/environment_local.txt).
+
 ## Assessment deliverables
 
 | Requirement | Location |
