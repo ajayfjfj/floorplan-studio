@@ -4,11 +4,13 @@ Detect architectural elements in floor-plan images and export spatial JSON for a
 
 [![Live demo](https://img.shields.io/badge/demo-open-174f46)](https://ajayfjfj.github.io/floorplan-studio/) [![Project checks](https://github.com/ajayfjfj/floorplan-studio/actions/workflows/checks.yml/badge.svg?branch=main)](https://github.com/ajayfjfj/floorplan-studio/actions/workflows/checks.yml) [![MIT license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-![Floorplan Studio interface ready to run detection](results/browser/demo_desktop.jpg)
+![Example prediction: walls, doors, windows and rooms detected on a test plan](results/browser/visual_overview.png)
 
 Floorplan Studio detects walls, doors, windows, and generic room regions with a fine-tuned SegFormer-B0. It converts semantic masks into polygons, interior holes, bounding boxes, and estimated opening spans for spatial JSON export. The browser interface runs the trained model on the visitor's device, supports image uploads and sample plans, and downloads JSON or an annotated PNG overview. The repository includes the training and evaluation code, checkpoints, measured results, and implementation notes.
 
 ## Try it
+
+![Floorplan Studio interface](results/browser/demo_desktop.jpg)
 
 [Open the live demo](https://ajayfjfj.github.io/floorplan-studio/), choose a sample plan or upload an image, and select **Run detection**. Images never leave the browser; the first run downloads roughly 36 MB of model and runtime files. Results stay empty until inference finishes.
 
@@ -39,7 +41,7 @@ Room occupancy segmentation is substantially stronger than individual room separ
 
 ## Why SegFormer-B0 instead of a vision-language model
 
-The 2D-to-3D handoff needs pixel-accurate polygons and opening spans that can be checked against image annotations. A segmentation model supplies dense per-pixel predictions for tracing geometry, while coordinates generated as text by a general vision-language model would need additional spatial controls and validation. SegFormer-B0 is compact and its median model inference time is 29.3 ms on a T4; the same trained weights also run in the browser through ONNX. The encoder and decoder were fine-tuned together with supervised gradient descent over 7,857 optimizer steps, rather than relying on prompting. The parameter-update evidence is retained in [finetuning_evidence.json](artifacts/segformer/finetuning_evidence.json), with the initial checkpoint available for comparison.
+The 2D-to-3D handoff needs pixel-accurate polygons and opening spans that can be checked against image annotations. A segmentation model supplies dense per-pixel predictions for tracing geometry, while coordinates generated as text by a general vision-language model would need additional spatial controls and validation. SegFormer-B0 is compact (3.7M trainable parameters, recorded in artifacts/segformer/finetuning_evidence.json as 3,715,429) and its median model inference time is 29.3 ms on a T4; the same trained weights also run in the browser through ONNX. The encoder and decoder were fine-tuned together with supervised gradient descent over 7,857 optimizer steps, rather than relying on prompting. The parameter-update evidence is retained in [finetuning_evidence.json](artifacts/segformer/finetuning_evidence.json), with the initial checkpoint available for comparison.
 
 ## Approach
 
@@ -55,6 +57,20 @@ flowchart LR
     D --> E[Polygons and opening spans]
     E --> F[Validated spatial JSON]
 ```
+
+## Local installation
+
+Use Python 3.10 or newer. Create an isolated environment in the project directory:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -e .
+```
+
+CUDA is used automatically when available, then Apple MPS when supported, otherwise CPU. CPU inference is supported; GPU training is recommended. Use `--device cpu`, `--device mps`, or `--device cuda` to select explicitly.
+
+Recorded package versions are available for the [Colab environment](docs/environment/environment_colab.txt) and the [local environment](docs/environment/environment_local.txt).
 
 ## Dataset and preparation
 
@@ -106,21 +122,7 @@ node tests/test_browser_geometry.cjs
 python scripts/verify_web.py
 ```
 
-The deduplicated official test split is held out from training and checkpoint selection. Report pixel accuracy, foreground and class IoU, Dice, true-instance precision/recall/F1 at mask IoU ≥ 0.5, room-count MAE, inference latency, and schema-valid JSON rate. Source SVG polygons define ground-truth instances; connected mask components define predicted instances. Wall-instance scores are diagnostic because adjacent wall segments form a single network. The first eight retained test images are exported in manifest order without selecting for successful predictions.
-
-## Local installation
-
-Use Python 3.10 or newer. Create an isolated environment in the project directory:
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install -e .
-```
-
-CUDA is used automatically when available, then Apple MPS when supported, otherwise CPU. CPU inference is supported; GPU training is recommended. Use `--device cpu`, `--device mps`, or `--device cuda` to select explicitly.
-
-Recorded package versions are available for the [Colab environment](docs/environment/environment_colab.txt) and the [local environment](docs/environment/environment_local.txt).
+The deduplicated official test split is held out from training and checkpoint selection. Reported metrics: pixel accuracy, foreground and class IoU, Dice, true-instance precision/recall/F1 at mask IoU ≥ 0.5, room-count MAE, inference latency, and schema-valid JSON rate. Source SVG polygons define ground-truth instances; connected mask components define predicted instances. Wall-instance scores are diagnostic because adjacent wall segments form a single network. The first eight retained test images are exported in manifest order without selecting for successful predictions.
 
 ## Assessment deliverables
 
@@ -135,7 +137,7 @@ Recorded package versions are available for the [Colab environment](docs/environ
 | Sample images and JSON | `results/test/samples/` |
 | White-background PowerPoint | `presentation/` |
 
-Training ran for 30 epochs on a Colab T4, with **7,857 optimizer steps**. Validation foreground mIoU selected the epoch-28 checkpoint. The ONNX export has identical argmax predictions to PyTorch on all eight exported samples; numerical checks are recorded in `results/browser_export_verification.json`.
+Training ran for 30 epochs on a Colab T4, with **7,857 optimizer steps**. The step count is slightly below epochs × batches per epoch because mixed-precision training skips optimizer steps when gradients overflow. Validation foreground mIoU selected the epoch-28 checkpoint. The ONNX export has identical argmax predictions to PyTorch on all eight exported samples; numerical checks are recorded in `results/browser_export_verification.json`.
 
 ```bash
 python scripts/verify_submission.py
@@ -146,14 +148,13 @@ python scripts/package_submission.py
 
 - **Room separation:** room IoU is 91.9%, but room instance F1 is 38.9% and room-count MAE is 4.7 rooms per plan because connected regions can merge adjacent rooms. A next step is distance-transform/watershed splitting, evaluated with the same instance metric.
 - **Walls:** wall IoU is 70.1%, while diagnostic wall instance F1 is 7.5% because walls form a connected network. Possible next steps are skeletonizing and dividing that network into segments, or predicting wall centerlines.
-- **Doors:** IoU is 49.7%; thin openings can vanish at 512 px. Higher-resolution or tiled inference and a door loss/class-weighting study are candidates for further evaluation.
+- **Doors:** IoU is 49.7%; thin openings can vanish at 512 px, and connected regions can merge adjacent doors. Higher-resolution or tiled inference and a door loss/class-weighting study are candidates for further evaluation.
 - **Room types:** only a generic `room` class is predicted. Room-type classes could be added using the distinctions already present in the source SVG labels.
-- **Scale and distribution:** scale and heights are not inferred, so 3D construction needs external calibration. Hand drawings and scans are outside the training distribution.
+- **Scale and distribution:** scale and heights are not inferred, so 3D construction needs external calibration. Hand drawings, unfamiliar plan styles, and scans are outside the training distribution.
 - **Browser geometry:** a capped raster and native canvas resizing can produce small differences from the Python evaluation pipeline.
+- **Topology:** geometry is approximate and may require downstream repair. Measured failure cases are documented in `results/RESULTS.md`.
 
-## Limitations and licensing
-
-Thin openings may disappear at 512-pixel resolution; connected regions can merge adjacent rooms or doors. Hand drawings, unfamiliar plan styles, and scans are outside the training distribution. Geometry is an approximation and may require topology repair downstream. See measured failure cases in the completed result report.
+## Licensing
 
 Project-authored code is MIT licensed. CubiCasa5K is **CC BY-NC 4.0**; dataset samples, annotations, derived examples, and learned artifacts carry upstream usage restrictions. SegFormer pretrained weights have NVIDIA's upstream model license. The demo is for noncommercial research use. The dataset and development environment are excluded from version control. See `THIRD_PARTY_NOTICES.md` for model and runtime terms.
 
