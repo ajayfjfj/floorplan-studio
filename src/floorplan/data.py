@@ -1,7 +1,6 @@
 """CubiCasa SVG polygons, preserving the official floor-level split."""
 
 import hashlib
-import json
 import re
 import xml.etree.ElementTree as ET
 from pathlib import Path
@@ -46,9 +45,8 @@ def svg_objects(path, image_size):
     w, h = image_size
     vb = list(map(float, re.findall(NUMBER, root.get("viewBox", ""))))
     if len(vb) == 4:
-        x, y, sw, sh = vb
+        _, _, sw, sh = vb
     else:
-        x = y = 0
         sw = float(re.findall(NUMBER, root.get("width", str(w)))[0])
         sh = float(re.findall(NUMBER, root.get("height", str(h)))[0])
     if sw <= 0 or sh <= 0:

@@ -1,6 +1,5 @@
 """End-to-end Colab job. Run in a fresh runtime after uploading project_source.zip."""
 
-import json
 import subprocess
 import sys
 import zipfile

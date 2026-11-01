@@ -1,8 +1,6 @@
 import json
-import shutil
 import time
 from pathlib import Path
-import cv2
 import jsonschema
 import numpy as np
 from PIL import Image, ImageDraw

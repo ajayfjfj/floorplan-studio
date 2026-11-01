@@ -76,8 +76,6 @@ class CoreTests(unittest.TestCase):
         self.assertGreater(float(logits.grad.abs().sum()), 0)
 
     def test_duplicate_images_keep_test_then_validation_priority(self):
-        import json
-
         svg = '<svg width="32" height="32" xmlns="http://www.w3.org/2000/svg"><g id="Wall"><polygon points="2,2 8,2 8,28 2,28"/></g></svg>'
         with tempfile.TemporaryDirectory() as d:
             root = Path(d) / "raw"
