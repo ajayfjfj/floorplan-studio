@@ -137,6 +137,11 @@ Recorded package versions are available for the [Colab environment](docs/environ
 
 Training ran for 30 epochs on a Colab T4, with **7,857 optimizer steps**. Validation foreground mIoU selected the epoch-28 checkpoint. The ONNX export has identical argmax predictions to PyTorch on all eight exported samples; numerical checks are recorded in `results/browser_export_verification.json`.
 
+```bash
+python scripts/verify_submission.py
+python scripts/package_submission.py
+```
+
 ## Known limitations and next steps
 
 - **Room separation:** room IoU is 91.9%, but room instance F1 is 38.9% and room-count MAE is 4.7 rooms per plan because connected regions can merge adjacent rooms. A next step is distance-transform/watershed splitting, evaluated with the same instance metric.
@@ -152,13 +157,6 @@ Thin openings may disappear at 512-pixel resolution; connected regions can merge
 
 Project-authored code is MIT licensed. CubiCasa5K is **CC BY-NC 4.0**; dataset samples, annotations, derived examples, and learned artifacts carry upstream usage restrictions. SegFormer pretrained weights have NVIDIA's upstream model license. The demo is for noncommercial research use. The dataset and development environment are excluded from version control. See `THIRD_PARTY_NOTICES.md` for model and runtime terms.
 
-## Repository and review bundle
+## Repository contents
 
-The repository includes the trained checkpoint, export, sample outputs, evaluation records, and PowerPoint. Dataset archives, virtual environments, caches, and local hosting state are ignored. Each individual asset fits within GitHub's ordinary file-size limit; Git LFS is not required for this version.
-
-```bash
-python scripts/verify_submission.py
-python scripts/package_submission.py
-```
-
-The review archive is written to `dist/FloorPlan_Detection_Submission.zip`. [GitHub setup and Pages instructions](docs/GITHUB.md).
+The repository includes the trained checkpoint, browser export, sample outputs, evaluation records, and the PowerPoint. Dataset archives, virtual environments, caches, and local hosting state are ignored. Each asset fits within GitHub's ordinary file-size limit, so Git LFS is not required. Maintenance and Pages notes are in [docs/GITHUB.md](docs/GITHUB.md).
