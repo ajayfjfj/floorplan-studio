@@ -10,13 +10,10 @@ artifacts/**/last/
 *.tar.gz
 .build/
 *.egg-info/
-.codex-finalizer/
-.chart-data-*/
 node_modules/
 .env
 .env.*
 !.env.example
-web/.openai/
 web/.git/
 .pytest_cache/
 .ruff_cache/

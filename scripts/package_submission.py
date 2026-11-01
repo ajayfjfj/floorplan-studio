@@ -32,7 +32,7 @@ def main():
                     not p.is_file()
                     or "__pycache__" in p.parts
                     or any(x.endswith(".egg-info") for x in p.parts)
-                    or any(x in (".git", ".openai", "node_modules") for x in p.parts)
+                    or any(x in (".git", "node_modules") for x in p.parts)
                     or p.name == ".DS_Store"
                 ):
                     continue
