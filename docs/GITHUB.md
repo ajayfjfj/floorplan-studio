@@ -1,6 +1,6 @@
 # Repository maintenance
 
-The source, trained weights, browser export, sample predictions, evaluation records, and final PowerPoint are versioned in [ajayfjfj/floorplan-studio](https://github.com/ajayfjfj/floorplan-studio). The repository is **private**, its default branch is `main`, and GitHub Pages is disabled. Large training data and local tooling are excluded by `.gitignore`.
+The source, trained weights, browser export, sample predictions, evaluation records, and final PowerPoint are versioned in the public repository [ajayfjfj/floorplan-studio](https://github.com/ajayfjfj/floorplan-studio). The default branch is `main`. The browser demo is published with GitHub Pages at [ajayfjfj.github.io/floorplan-studio](https://ajayfjfj.github.io/floorplan-studio/) through the manual **Publish demo to GitHub Pages** workflow. Large training data and local tooling are excluded by `.gitignore`.
 
 ## Before pushing changes
 
@@ -20,11 +20,11 @@ All current model and runtime assets are below 25 MiB per file. Keep the browser
 
 ## Push reviewed source changes
 
-The local `origin` remote points to `https://github.com/ajayfjfj/floorplan-studio.git`. Commit reviewed changes and push `main` using an authenticated GitHub account with access to this private repository. Source pushes run the project checks automatically.
+The local `origin` remote points to `https://github.com/ajayfjfj/floorplan-studio.git`. Commit reviewed changes and push `main` using an authenticated GitHub account with write access to the repository. Source pushes run the project checks automatically.
 
 ## GitHub Pages hosting
 
-Website publication is separate from repository access and is currently disabled. Do not run the publishing workflow until a website deployment is requested. Confirm the account's Pages eligibility and intended website audience before enabling it.
+The demo uses the manually triggered **Publish demo to GitHub Pages** workflow:
 
 1. Open repository **Settings → Pages** and choose **GitHub Actions** as the source.
 2. In **Actions**, run **Publish demo to GitHub Pages** manually.

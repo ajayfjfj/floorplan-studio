@@ -16,7 +16,7 @@ To run the same interface locally, no Python packages or API keys are needed:
 python3 -m http.server 8765 --bind 127.0.0.1 --directory web/dist
 ```
 
-Open http://localhost:8765. The first live detection downloads roughly 36 MB of model and runtime files. See [the interface documentation](web/README.md) for browser support, model export, and static hosting. This repository is private and GitHub Pages is not enabled; publishing a website is a separate step.
+Open http://localhost:8765. The first live detection downloads roughly 36 MB of model and runtime files. See [the interface documentation](web/README.md) for browser support, model export, and static hosting.
 
 ## Deliverables
 

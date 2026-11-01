@@ -54,7 +54,7 @@ The export script checks ONNX against PyTorch on all eight samples. `results/bro
 
 ## Static hosting
 
-The interface is prepared for GitHub Pages. No public deployment is currently configured in this repository.
+The interface is published with GitHub Pages: [Open Floorplan Studio](https://ajayfjfj.github.io/floorplan-studio/).
 
 Publish the contents of `web/dist/` on any static host that serves `.wasm` as `application/wasm` and `.mjs` as JavaScript. All application paths are relative, including model and worker URLs, so repository subpaths work. No build command or environment variables are required.
 
