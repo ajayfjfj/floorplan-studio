@@ -1,8 +1,8 @@
-# GitHub setup
+# Repository maintenance
 
-The source, trained weights, browser export, sample predictions, evaluation records, and final PowerPoint are ready to version together. Large training data and local tooling are excluded by `.gitignore`.
+The source, trained weights, browser export, sample predictions, evaluation records, and final PowerPoint are versioned in [ajayfjfj/floorplan-studio](https://github.com/ajayfjfj/floorplan-studio). The repository is **private**, its default branch is `main`, and GitHub Pages is disabled. Large training data and local tooling are excluded by `.gitignore`.
 
-## Before the first push
+## Before pushing changes
 
 Run these checks from the repository root:
 
@@ -18,11 +18,13 @@ The expected source tree includes `src/`, `scripts/`, `tests/`, `docs/`, `notebo
 
 All current model and runtime assets are below 25 MiB per file. Keep the browser ONNX model and WASM files as normal Git blobs so static hosting serves the actual bytes. Replacing them with unresolved Git LFS pointers breaks inference.
 
-## Publish the source
+## Push reviewed source changes
 
-Create an empty repository in the intended GitHub account, then set that repository as the remote and push the reviewed local branch. No GitHub remote is configured in the delivered project.
+The local `origin` remote points to `https://github.com/ajayfjfj/floorplan-studio.git`. Commit reviewed changes and push `main` using an authenticated GitHub account with access to this private repository. Source pushes run the project checks automatically.
 
 ## GitHub Pages hosting
+
+Website publication is separate from repository access and is currently disabled. Do not run the publishing workflow until a website deployment is requested. Confirm the account's Pages eligibility and intended website audience before enabling it.
 
 1. Open repository **Settings → Pages** and choose **GitHub Actions** as the source.
 2. In **Actions**, run **Publish demo to GitHub Pages** manually.

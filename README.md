@@ -2,6 +2,8 @@
 
 Detect **walls, doors, windows, and room regions** in 2D floor-plan images, inspect the result, and export spatial JSON. The project includes a fine-tuned SegFormer-B0, a browser demo, and the Python training and evaluation pipeline.
 
+[Training notebook](notebooks/FloorPlan_Colab.ipynb) · [Evaluation results](results/RESULTS.md) · [JSON format](docs/JSON_FORMAT.md) · [Interface guide](web/README.md)
+
 ![Floorplan Studio interface ready to run detection](results/browser/demo_desktop.jpg)
 
 ## Try it
@@ -14,7 +16,7 @@ To run the same interface locally, no Python packages or API keys are needed:
 python3 -m http.server 8765 --bind 127.0.0.1 --directory web/dist
 ```
 
-Open http://localhost:8765. The first live detection downloads roughly 36 MB of model and runtime files. See [the interface documentation](web/README.md) for browser support, model export, and static hosting. The included GitHub Pages workflow can be run manually after the repository is published.
+Open http://localhost:8765. The first live detection downloads roughly 36 MB of model and runtime files. See [the interface documentation](web/README.md) for browser support, model export, and static hosting. This repository is private and GitHub Pages is not enabled; publishing a website is a separate step.
 
 ## Deliverables
 
