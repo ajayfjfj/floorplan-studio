@@ -1,39 +1,26 @@
 # Floorplan Studio
 
-Detect **walls, doors, windows, and room regions** in 2D floor-plan images, inspect the result, and export spatial JSON. The project includes a fine-tuned SegFormer-B0, a browser demo, and the Python training and evaluation pipeline.
+Detect architectural elements in floor-plan images and export spatial JSON for a 2D-to-3D pipeline.
 
-[Training notebook](notebooks/FloorPlan_Colab.ipynb) · [Evaluation results](results/RESULTS.md) · [JSON format](docs/JSON_FORMAT.md) · [Interface guide](web/README.md)
+[![Live demo](https://img.shields.io/badge/demo-open-174f46)](https://ajayfjfj.github.io/floorplan-studio/) [![Project checks](https://github.com/ajayfjfj/floorplan-studio/actions/workflows/checks.yml/badge.svg?branch=main)](https://github.com/ajayfjfj/floorplan-studio/actions/workflows/checks.yml) [![MIT license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 ![Floorplan Studio interface ready to run detection](results/browser/demo_desktop.jpg)
 
+Floorplan Studio detects walls, doors, windows, and generic room regions with a fine-tuned SegFormer-B0. It converts semantic masks into polygons, interior holes, bounding boxes, and estimated opening spans for spatial JSON export. The browser interface runs the trained model on the visitor's device, supports image uploads and sample plans, and downloads JSON or an annotated PNG overview. The repository includes the training and evaluation code, checkpoints, measured results, and implementation notes.
+
 ## Try it
 
-Choose one of eight test plans, or upload a PNG, JPEG, or WebP image, then select **Run detection**. The interface starts without results and generates each prediction live. It provides class filters, prediction overlays, region details, a JSON viewer, and JSON/PNG downloads. Images are processed in the browser and stay on the visitor's device.
+[Open the live demo](https://ajayfjfj.github.io/floorplan-studio/), choose a sample plan or upload an image, and select **Run detection**. Images never leave the browser; the first run downloads roughly 36 MB of model and runtime files. Results stay empty until inference finishes.
 
-To run the same interface locally, no Python packages or API keys are needed:
+To run locally, no Python packages or API keys are needed:
 
 ```bash
 python3 -m http.server 8765 --bind 127.0.0.1 --directory web/dist
 ```
 
-Open http://localhost:8765. The first live detection downloads roughly 36 MB of model and runtime files. See [the interface documentation](web/README.md) for browser support, model export, and static hosting.
+Open http://localhost:8765. See the [interface guide](web/README.md) for browser support, the sample-image download, model export, and static hosting.
 
-## Deliverables
-
-| Requirement | Location |
-|---|---|
-| Browser interface, ready for static hosting | `web/dist/`, `web/README.md` |
-| Training, inference, evaluation | `src/floorplan/`, `scripts/`, Colab notebook |
-| Fine-tuned weights | `artifacts/segformer/best/` |
-| Browser model export | `web/dist/models/floorplan-segformer.onnx` |
-| Dataset/preprocessing details | `docs/DATASET.md`, generated dataset audit |
-| Unseen-plan evaluation | `results/test/metrics.json`, `results/RESULTS.md` |
-| Sample images and JSON | `results/test/samples/` |
-| White-background PowerPoint | `presentation/` |
-
-Training ran for 30 epochs on a Colab T4, with **7,857 optimizer steps**. Validation foreground mIoU selected the epoch-28 checkpoint. The ONNX export has identical argmax predictions to PyTorch on all eight exported samples; numerical checks are recorded in `results/browser_export_verification.json`.
-
-## Measured results
+## Results
 
 Evaluation used **400 unseen test plans**:
 
@@ -43,11 +30,16 @@ Evaluation used **400 unseen test plans**:
 | Pixel accuracy | 94.71% |
 | Room / wall / door / window IoU | 91.93% / 70.05% / 49.66% / 67.50% |
 | Room / door / window instance F1 | 38.87% / 45.84% / 58.63% |
+| Wall instance F1 (diagnostic) | 7.48% |
 | Room-count MAE | 4.715 rooms per plan |
 | Schema-valid JSON | 100% |
 | Median model inference on T4, excluding image I/O | 29.3 ms |
 
-Room occupancy segmentation is substantially stronger than individual room separation: connected regions can merge adjacent rooms and open-plan functional areas. The exported geometry is a research demonstration and needs topology review before automatic 3D reconstruction. Schema validity measures JSON structure, not geometric correctness. Full metrics, per-plan scores, and reproducible failure cases are in `results/RESULTS.md` and `results/test/`.
+Room occupancy segmentation is substantially stronger than individual room separation: connected regions can merge adjacent rooms and open-plan functional areas. The exported geometry is a research demonstration and needs topology review before automatic 3D reconstruction. Wall instances form a connected network, so wall instance F1 is diagnostic. Schema validity measures JSON structure, not geometric correctness. Full metrics, per-plan scores, and reproducible failure cases are in `results/RESULTS.md` and `results/test/`.
+
+## Why SegFormer-B0 instead of a vision-language model
+
+The 2D-to-3D handoff needs pixel-accurate polygons and opening spans that can be checked against image annotations. A segmentation model supplies dense per-pixel predictions for tracing geometry, while coordinates generated as text by a general vision-language model would need additional spatial controls and validation. SegFormer-B0 is compact and its median model inference time is 29.3 ms on a T4; the same trained weights also run in the browser through ONNX. The encoder and decoder were fine-tuned together with supervised gradient descent over 7,857 optimizer steps, rather than relying on prompting. The parameter-update evidence is retained in [finetuning_evidence.json](artifacts/segformer/finetuning_evidence.json), with the initial checkpoint available for comparison.
 
 ## Approach
 
@@ -63,18 +55,6 @@ flowchart LR
     D --> E[Polygons and opening spans]
     E --> F[Validated spatial JSON]
 ```
-
-## Local installation
-
-Use Python 3.10 or newer. Create an isolated environment in the project directory:
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install -e .
-```
-
-CUDA is used automatically when available, then Apple MPS when supported, otherwise CPU. CPU inference is supported; GPU training is recommended. Use `--device cpu`, `--device mps`, or `--device cuda` to select explicitly.
 
 ## Dataset and preparation
 
@@ -127,6 +107,42 @@ python scripts/verify_web.py
 ```
 
 The deduplicated official test split is held out from training and checkpoint selection. Report pixel accuracy, foreground and class IoU, Dice, true-instance precision/recall/F1 at mask IoU ≥ 0.5, room-count MAE, inference latency, and schema-valid JSON rate. Source SVG polygons define ground-truth instances; connected mask components define predicted instances. Wall-instance scores are diagnostic because adjacent wall segments form a single network. The first eight retained test images are exported in manifest order without selecting for successful predictions.
+
+## Local installation
+
+Use Python 3.10 or newer. Create an isolated environment in the project directory:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -e .
+```
+
+CUDA is used automatically when available, then Apple MPS when supported, otherwise CPU. CPU inference is supported; GPU training is recommended. Use `--device cpu`, `--device mps`, or `--device cuda` to select explicitly.
+
+## Assessment deliverables
+
+| Requirement | Location |
+|---|---|
+| Browser interface, ready for static hosting | `web/dist/`, `web/README.md` |
+| Training, inference, evaluation | `src/floorplan/`, `scripts/`, Colab notebook |
+| Fine-tuned weights | `artifacts/segformer/best/` |
+| Browser model export | `web/dist/models/floorplan-segformer.onnx` |
+| Dataset/preprocessing details | `docs/DATASET.md`, generated dataset audit |
+| Unseen-plan evaluation | `results/test/metrics.json`, `results/RESULTS.md` |
+| Sample images and JSON | `results/test/samples/` |
+| White-background PowerPoint | `presentation/` |
+
+Training ran for 30 epochs on a Colab T4, with **7,857 optimizer steps**. Validation foreground mIoU selected the epoch-28 checkpoint. The ONNX export has identical argmax predictions to PyTorch on all eight exported samples; numerical checks are recorded in `results/browser_export_verification.json`.
+
+## Known limitations and next steps
+
+- **Room separation:** room IoU is 91.9%, but room instance F1 is 38.9% and room-count MAE is 4.7 rooms per plan because connected regions can merge adjacent rooms. A next step is distance-transform/watershed splitting, evaluated with the same instance metric.
+- **Walls:** wall IoU is 70.1%, while diagnostic wall instance F1 is 7.5% because walls form a connected network. Possible next steps are skeletonizing and dividing that network into segments, or predicting wall centerlines.
+- **Doors:** IoU is 49.7%; thin openings can vanish at 512 px. Higher-resolution or tiled inference and a door loss/class-weighting study are candidates for further evaluation.
+- **Room types:** only a generic `room` class is predicted. Room-type classes could be added using the distinctions already present in the source SVG labels.
+- **Scale and distribution:** scale and heights are not inferred, so 3D construction needs external calibration. Hand drawings and scans are outside the training distribution.
+- **Browser geometry:** a capped raster and native canvas resizing can produce small differences from the Python evaluation pipeline.
 
 ## Limitations and licensing
 
